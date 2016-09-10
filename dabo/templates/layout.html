@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Raspberry Pi Dashboard</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<div class="container">
+    <h1>dabo</h1>
+    <div class="input-group input-group-lg">
+        <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+        </button>
+    </div>
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation"><a href={{ url_for('dvb_depature') }}>DVB</a></li>
+        <li role="presentation"><a href={{ url_for('reddit_upvotes') }}>Reddit</a></li>
+    </ul>
+    {% block body %}
+    {% endblock %}
+</div>

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <h2 class="pager-header">Depatures</h2>
+
+    <ul class="list-group">
+    {% for station, schedule in schedules.items() %}
+        <li class="list-group-item">{{ station }}</li>
+        <ul class="list-group">
+        {% for route, direction, time in schedule %}
+         {% if time|int < 9 %}
+            <li class="list-group-item list-group-item-danger">
+                <span class="badge">Min: {{ time }}</span>
+                {{ route }} {{ direction }}
+            </li>
+            {% elif time|int < 15 %}
+            <li class="list-group-item list-group-item-success">
+                <span class="badge">Min: {{ time }}</span>
+                {{ route }} {{ direction }}
+            </li>
+            {% else %}
+            <li class="list-group-item">
+                <span class="badge">Min: {{ time }}</span>
+                {{ route }} {{ direction }}
+            </li>
+          {% endif %}
+         {% endfor %}
+        </ul>
+    {% endfor %}
+    </ul>
+
+</div>
+
+{% endblock %}
