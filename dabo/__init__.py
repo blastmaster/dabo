@@ -15,8 +15,15 @@ import dabo.views
 @app.route('/')
 def index():
     # TODO:
-    # Load available plugins in a ring-list
+    # Load available plugins in a ring-list.
     # response = render_template('layout.html', views=app.config['PLUGINS'])
     # TODO:
     # If no plugins there provide some index page.
     return redirect(url_for(app.config['PLUGINS'][0]['endpoint']))
+
+
+@app.template_filter('plugin_name')
+def strip_plugin_name(name):
+    if name.startswith('.'):
+        return name[1:]
+    return name

@@ -17,7 +17,7 @@
     </div>
     <ul class="nav nav-pills nav-justified">
     {% for view in views %}
-        <li role="presentation"><a href={{ url_for(view['endpoint']) }}>{{ view['name'] }}</a></li>
+    <li role="presentation"><a href={{ url_for(view['endpoint']) }}>{{ view['name']|plugin_name }}</a></li>
     {% endfor %}
     </ul>
     {% block body %}
