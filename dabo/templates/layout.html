@@ -16,8 +16,9 @@
         </button>
     </div>
     <ul class="nav nav-pills nav-justified">
-        <li role="presentation"><a href={{ url_for('dvb_depature') }}>DVB</a></li>
-        <li role="presentation"><a href={{ url_for('reddit_upvotes') }}>Reddit</a></li>
+    {% for view in views %}
+        <li role="presentation"><a href={{ url_for(view['endpoint']) }}>{{ view['name'] }}</a></li>
+    {% endfor %}
     </ul>
     {% block body %}
     {% endblock %}

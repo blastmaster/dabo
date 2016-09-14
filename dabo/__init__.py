@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 
 app = Flask(__name__)
 app.config.from_pyfile('settings.py')
@@ -9,14 +9,14 @@ app.config.from_envvar('DABO_SETTINGS', silent=True)
 import pprint
 app.logger.debug('configs: {}'.format(pprint.pprint(app.config)))
 
-# TODO: loading plugins
-import dabo.views.dvb
-import dabo.views.reddit
-
+''' load view plugins '''
+import dabo.views
 
 @app.route('/')
 def index():
     # TODO:
-    # load available plugins, plugins are managed in a ring-list
-    # choose first plugin
-    return render_template('layout.html')
+    # Load available plugins in a ring-list
+    # response = render_template('layout.html', views=app.config['PLUGINS'])
+    # TODO:
+    # If no plugins there provide some index page.
+    return redirect(url_for(app.config['PLUGINS'][0]['endpoint']))

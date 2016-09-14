@@ -15,7 +15,7 @@ class DepatureSchedule(View):
             depature_schedules.update({station: schedule})
 
         app.logger.debug('Rendering publictransport site')
-        return render_template('publictransport.html', schedules=depature_schedules)
+        return render_template('publictransport.html', schedules=depature_schedules, views=app.config['PLUGINS'])
 
 
 def dvb_depature_schedule(stations):

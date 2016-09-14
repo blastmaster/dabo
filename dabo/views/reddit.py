@@ -135,7 +135,7 @@ class RedditView(View):
         self.agent.login()
         articles = self.agent.get_upvoted()
         app.logger.debug('Rendering redditreads site')
-        return render_template('redditreads.html', articles=articles)
+        return render_template('redditreads.html', articles=articles, views=app.config['PLUGINS'])
 
 
 class RedditAuthView(View):
