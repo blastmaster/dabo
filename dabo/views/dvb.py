@@ -24,7 +24,7 @@ def dvb_depature_schedule(stations):
     and yields a tuple containing the station name and the response data as
     json. '''
 
-    ''' depature schedule url '''
+    # depature schedule url
     URL = "http://widgets.vvo-online.de/abfahrtsmonitor/Abfahrten.do"
 
     for station, tm in stations:
@@ -35,9 +35,9 @@ def dvb_depature_schedule(stations):
 
         data = requests.get(URL, params=params)
         if data.ok:
-           yield (station, data.json())
+            yield (station, data.json())
         else:
-            print("get status code {}".format(data.status_code))
+            app.logger.debug("get status code {}".format(data.status_code))
 
 
 app.add_url_rule('/dvb', view_func=DepatureSchedule.as_view('dvb_depature'))

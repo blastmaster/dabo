@@ -24,6 +24,8 @@ def index():
 
 @app.template_filter('plugin_name')
 def strip_plugin_name(name):
+    ''' Remove beginning dot from plugin name. '''
+
     if name.startswith('.'):
         return name[1:]
     return name
