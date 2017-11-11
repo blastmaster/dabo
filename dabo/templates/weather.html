@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <h2 class="page-header">Weather</h2>
+    <ul class="list-group">
+        <li class="list-group-item"> Description: {{ weather.weather[0].description }}</li>
+        <li class="list-group-item"> Wind-Speed: {{ weather.wind.speed }}</li>
+        <li class="list-group-item"> Humidity: {{ weather.main.humidity }}</li>
+        <li class="list-group-item"> Pressure: {{ weather.main.pressure }}</li>
+        <li class="list-group-item"> Temp: {{ weather.main.temp}}</li>
+    </ul>
+</div>
+
+{% endblock %}
