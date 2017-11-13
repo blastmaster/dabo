@@ -16,17 +16,17 @@ class WeatherView(View):
 
         api_key = app.config['OWM_API_KEY']
         city_id = app.config['OWM_CITY_ID']
-        weather_data = get_owm_weather(api_key, city_id)
+        cache_file = app.config['OWM_CACHE_FILE']
+
+        weather_data = get_owm_weather(api_key, city_id, cache_file)
         app.logger.debug('Rendering weather site')
         pprint.pprint(weather_data)
         return render_template('weather.html', weather=weather_data, views=app.config['PLUGINS'])
 
 
-def get_owm_weather(api_key, city_id):
+def get_owm_weather(api_key, city_id, cache_file):
 
-    cache_file = app.config['OWM_CACHE_FILE']
     myowm = Owm(cache_file, api_key)
-    app.logger.debug('getting weather data')
     data = myowm.weather(city_id)
     return data
 
@@ -36,9 +36,11 @@ class DaboRequestError(Exception):
 
 class Owm:
 
-    def __init__(self, cache_file, api_key):
+    def __init__(self, cache_file, api_key, units='metric'):
         self.cache_file = cache_file
         self.api_key = api_key
+        self.params = {"units": units,
+                       "APPID": self.api_key }
 
     def make_request(self, url, parameters):
 
@@ -54,15 +56,13 @@ class Owm:
     def weather(self, city_id):
         ''' Get the current weather data. '''
 
-        print("getting weather data.. ")
         data = None
         url = "http://api.openweathermap.org/data/2.5/weather"
-        params = {"id": city_id,
-                  "APPID": self.api_key}
+        self.params.update({'id': city_id})
         if not self.cache_expired():
             data = self.cache_read()
         else:
-            data = self.make_request(url, params)
+            data = self.make_request(url, self.params)
 
         return data
 
